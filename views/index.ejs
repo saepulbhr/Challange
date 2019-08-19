@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top:2%">
+        <div class="row">
+            <div class="container">
+                <h3>BREAD(Browser, Read, Edit, Add, Delete)</h3>
+                <h4>Filter</h4>
+                <form action="/" method="get">
+                    <input type="hidden" name="page" value="1">
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="id">
+                            <label class="form-check-label">ID</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:12%;">
+                            <input type="text" class="form-control" placeholder="ID" name="nmId">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="string">
+                            <label class="form-check-label">String</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:10%;">
+                            <input type="text" class="form-control" placeholder="String" name="nmString">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="integer">
+                            <label class="form-check-label">Integer</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:9%;">
+                            <input type="text" class="form-control" placeholder="Integer" name="nmInteger">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="float">
+                            <label class="form-check-label">Float</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:10%;">
+                            <input type="text" class="form-control" placeholder="Float" name="nmFloat">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="date">
+                            <label class="form-check-label">Date</label>
+                        </div>
+                        <div class="form col-md-2" style="margin-left:10%;">
+                            <input type="date" class="form-control" data-date-format="DD MMMM YYYY"
+                                placeholder="Start date" name="nmDatestart">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form" style="margin-left:15.5%;">
+                            <label class="form-check-label">to</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2" style="margin-left:15%;">
+                            <input type="date" class="form-control" data-date-format="DD MMMM YYYY"
+                                placeholder="End delete" name="nmDateend">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="boolean">
+                            <label class="form-check-label">Boolean</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:8%;">
+                            <select class="custom-select my-1 mr-sm-2" name="nmBoolean">
+                                <option selected>Choose the boolean</option>
+                                <option value="true">true</option>
+                                <option value="false">false</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <table class="table table-striped" style="margin-top:2%">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">String</th>
+                            <th scope="col">Integer</th>
+                            <th scope="col">Float</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Boolean</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(show) { %>
+                        <% for(let i = 0; i < show.length; i++){ %>
+                        <tr>
+                            <th scope="row"><%= show[i].id %></th>
+                            <td><%= show[i].kata %></td>
+                            <td><%= show[i].bilanganBulat%></td>
+                            <td><%= show[i].pecahan%></td>
+                            <td><%= show[i].waktu%></td>
+                            <td><%= show[i].pilihan%></td>
+                            <td>
+                                <a href="/edit/<%= show[i].id%>">
+                                    <button type="submit" class="btn btn-success">Edit</button>
+                                </a>
+                                <a href="/delete/<%= show[i].id %>">
+                                    <button type="submit"
+                                        onclick="javascript: return confirm('Anda yakin akan menghapus ?')"
+                                        class="btn btn-danger">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <% } %>
+
+                    </tbody>
+                </table>
+
+                <a href="/add">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </a>
+
+                <nav aria-label="Page navigation example" style="margin-top:1%">
+                    <ul class="pagination">
+                        <li class="page-item <%= current == 1 ? 'disabled' : ''%>" ><a class="page-link" href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) - 1}`) %>">Previous</a></li>
+                        <% for(let i = 1; i <= pages; i++){ %>
+                        <li class="page-item <%= current == i ? 'active' : '' %>"><a class="page-link" href="<%= query.replace(`page=${current}`, `page=${i}`) %>"><%= i %></a></li>
+                        <% } %>
+                        <li class="page-item <%= current == pages ? 'disabled' : ''%>"><a class="page-link" href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) + 1}`) %>">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
