@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top:2%">
+        <div class="row">
+            <div class="container">
+                <h3>BREAD(Browser, Read, Edit, Add, Delete)</h3>
+                <h4>Filter</h4>
+                <form action="/" method="get">
+                    <input type="hidden" name="page" value="1" />
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="id" name="id" <%= show.id == 'on' ? 'checked' : ''%> >
+                            <label class="form-check-label" for="gridCheck">ID</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:12%;">
+                            <input type="text" class="form-control" placeholder="ID" id="nmId" name="nmId" value="<%= show.nmId && show.id == 'on' ? show.nmId : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="string" name="string" <%= show.string == 'on' ? 'checked' : ''%>>
+                            <label class="form-check-label" for="gridCheck">String</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:10%;">
+                            <input type="text" class="form-control" placeholder="String" id="nmString" name="nmString" value="<%= show.nmString && show.string == 'on' ? show.nmString : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="integer" name="integer" <%= show.integer == 'on' ? 'checked' : '' %> >
+                            <label class="form-check-label" for="gridCheck">Integer</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:9%;">
+                            <input type="text" class="form-control" placeholder="Integer" id="nmInteger" name="nmInteger" value="<%= show.nmInteger && show.integer == 'on' ? show.nmInteger : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="float" name="float" <%= show.float == 'on' ? 'checked' : ''%> >
+                            <label class="form-check-label" for="gridCheck">Float</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:10%;">
+                            <input type="text" class="form-control" placeholder="Float" id="nmFloat" name="nmFloat" value="<%= show.nmFloat && show.float == 'on' ? show.nmFloat : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="date" name="date" <%= show.date == 'on' ? 'checked' : ''%>>
+                            <label class="form-check-label" for="gridCheck">Date</label>
+                        </div>
+                        <div class="form col-md-2" style="margin-left:10%;">
+                            <input type="date" class="form-control" placeholder="Float" id="nmDatestart" name="nmDatestart" value="<%= show.nmDatestart && show.date == 'on' ? show.nmDatestart : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form" style="margin-left:15%;">
+                            <label class="form-check-label" for="gridCheck">to</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2" style="margin-left:15%;">
+                            <input type="date" class="form-control" placeholder="" id="nmDateend" name="nmDateend" value="<%= show.nmDateend && show.date == 'on' ? show.nmDateend : ''%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="boolean" name="boolean" <%= show.boolean == 'on' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="gridCheck">Boolean</label>
+                        </div>
+                        <div class="form-group col-md-6" style="margin-left:8%;">
+                            <select class="custom-select my-1 mr-sm-2" id="nmBoolean" name="nmBoolean">
+                                <option >Choose the boolean</option>
+                                <option value="true" <%= show.nmBoolean  == 'true' ? 'selected' : '' %>>true</option>
+                                <option value="false" <%= show.nmBoolean == 'false' ? 'selected' : '' %>>false</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <table class="table table-striped" style="margin-top:2%">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">String</th>
+                            <th scope="col">Integer</th>
+                            <th scope="col">Float</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Boolean</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          <% for(let i = 0; i < data.length; i++){ %>
+                          <tr>
+                              <th><%= data[i].id %></th>
+                              <td><%= data[i].kalimat %></td>
+                              <td><%= data[i].bilangan%></td>
+                              <td><%= data[i].pecahan%></td>
+                              <td><%= moment(data[i].waktu).format('YYYY-MM-DD') %></td>
+                              <td><%= data[i].pilihan %></td>
+                              <td>
+                                  <a href="/edit/<%= data[i].id%>">
+                                      <button type="submit" class="btn btn-success">Edit</button>
+                                  </a>
+                                  <a href="/delete/<%= data[i].id %>">
+                                      <button type="submit"
+                                          onclick="javascript: return confirm('Anda yakin akan menghapus ?')"
+                                          class="btn btn-danger">Delete</button>
+                                  </a>
+                              </td>
+                          </tr>
+                          <% } %>
+                    </tbody>
+                </table>
+
+                <a href="/add">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </a>
+
+                <nav aria-label="Page navigation example" style="margin-top:1%">
+                    <ul class="pagination">
+                        <li class="page-item <%= current == 1 ? 'disabled' : ''%>"><a class="page-link" href="<%= url.replace(`page=${parseInt(current)}`, `page=${parseInt(current) - 1}`)%>">Previous</a></li>
+                        <% for(let i = 1; i <= pages; i++){ %>
+                        <li class="page-item <%= current == i ? 'active' : '' %>"><a class="page-link" href="<%= url.replace(`page=${parseInt(current)}`, `page=${i}`) %>"><%= i %></a></li>
+                        <% } %>
+                        <li class="page-item <%= current == pages ? 'disabled' : '' %>"><a class="page-link" href="<%= url.replace(`page=${parseInt(current)}`, `page=${parseInt(current) + 1}`)%>">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
